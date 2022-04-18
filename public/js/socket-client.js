@@ -21,7 +21,7 @@ socket.on('disconnect', () => {
 });
 
 socket.on('enviar-mensaje', (payload) => {
-   console.log(payload);
+    console.log(payload);
 });
 
 // Emitir desde el cliente - Escuchar en el servidor
@@ -30,8 +30,11 @@ btnEnviar.addEventListener('click', () => {
     const mensaje = txtMensaje.value;
     const payload = {
         mensaje,
-        id: socket.id
+        id: socket.id,
+        fecha: new Date()
     }
-    socket.emit('enviar-mensaje', payload);
-    
+    socket.emit('enviar-mensaje', payload, (id) => {
+        console.log('Desde el server', id)
+    });
+
 });
